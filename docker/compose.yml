@@ -8,7 +8,7 @@ services:
       - 443:443
       - 443:443/udp
     volumes:
-      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ../caddy/Caddyfile:/etc/caddy/Caddyfile
       - caddy-data:/data
       - caddy-config:/config
 
@@ -40,8 +40,8 @@ services:
       - TZ=Etc/UTC
       - CLOUDFLARE_TOKEN=$CLOUDFLARE_TOKEN
     volumes:
-      - ./ddclient/config:/config
-      - ./ddclient/public-ip-from-fritzbox:/public-ip-from-fritzbox
+      - ../ddclient/config:/config
+      - ../ddclient/public-ip-from-fritzbox:/public-ip-from-fritzbox
 
 
 volumes:
