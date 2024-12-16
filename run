@@ -1,5 +1,4 @@
 #!/bin/sh
 
-source ./secrets.sh
 cd docker
-sudo docker compose up -d
+sudo docker compose --env-file ../secrets.sh up -d
