@@ -1,0 +1,52 @@
+services:
+  caddy:
+    container_name: caddy
+    image: caddy
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+      - 443:443/udp
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - caddy-data:/data
+      - caddy-config:/config
+
+  jellyfin:
+    container_name: jellyfin
+    image: lscr.io/linuxserver/jellyfin
+    restart: unless-stopped
+    ports:
+      - 8096:8096
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - jellyfin-config:/config
+      - jellyfin-cache:/cache
+      - type: bind
+        source: /mnt/NAS/Media
+        target: /media
+        read_only: true
+
+  ddclient:
+    container_name: ddclient
+    image: lscr.io/linuxserver/ddclient
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - CLOUDFLARE_TOKEN=$CLOUDFLARE_TOKEN
+    volumes:
+      - ./ddclient/config:/config
+      - ./ddclient/public-ip-from-fritzbox:/public-ip-from-fritzbox
+
+
+volumes:
+  jellyfin-cache:
+  jellyfin-config:
+
+  caddy-data:
+  caddy-config:

@@ -1,0 +1,8 @@
+jellyfin.unless-undefined.dev {
+  reverse_proxy jellyfin:8096
+}
+
+# unless-undefined.dev {
+#   root * /www/html
+#   file_server
+# }
